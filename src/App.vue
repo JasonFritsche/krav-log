@@ -1,8 +1,16 @@
-<script setup lang="ts"></script>
-
 <template>
+  <navbar></navbar>
   <router-view></router-view>
 </template>
+
+<script lang="ts">
+import { defineComponent } from "vue";
+import Navbar from "./components/Navbar.vue";
+
+export default defineComponent({
+  components: { Navbar },
+});
+</script>
 
 <style>
 #app {
@@ -11,6 +19,5 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
