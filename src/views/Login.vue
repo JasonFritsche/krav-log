@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-col align-center mt-24">
+  <div class="flex flex-col flex-grow align-center justify-center">
     <login-dialog headerText="Login to your Account" />
   </div>
 </template>
