@@ -1,13 +1,15 @@
 <template>
   <div class="min-h-screen flex flex-col items-center justify-center">
     <navbar></navbar>
-    <router-view></router-view>
+    <div class="flex flex-grow">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import Navbar from './components/Navbar.vue'
+import Navbar from './components/singleUseComponent/Navbar.vue'
 
 export default defineComponent({
   components: { Navbar }

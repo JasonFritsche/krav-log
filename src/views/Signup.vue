@@ -1,14 +1,15 @@
 <template>
-  <div>Signup</div>
-  <login-dialog headerText="Sign Up" />
+  <div class="flex-row self-center justify-self-center">
+    <signup-dialog headerText="Create Your Account" />
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import LoginDialog from '../components/LoginDialog.vue'
+import SignupDialog from '../components/singleUseComponent/SignupDialog.vue'
 
 export default defineComponent({
-  components: { LoginDialog },
+  components: { SignupDialog },
   setup() {}
 })
 </script>
