@@ -7,6 +7,14 @@
       <div class="p-3">
         <k-input
           type="text"
+          placeholder="User Name"
+          aria-placeholder="user name"
+          v-model="userName"
+        />
+      </div>
+      <div class="p-3">
+        <k-input
+          type="text"
           placeholder="Enter email"
           aria-placeholder="email"
           v-model="email"
@@ -48,19 +56,21 @@ export default defineComponent({
     headerText: String
   },
   setup(_, context) {
+    const userName = ref<string>('')
     const email = ref<string>('')
     const password = ref<string>('')
     const verifyPassword = ref<string>('')
     const store = useStore()
 
     const createAccount = () => {
-      register('testusername', email.value, password.value).then((user) => {
+      register(userName.value, email.value, password.value).then((user) => {
         store.commit('setUser', user)
         console.log(store.state)
       })
     }
 
     return {
+      userName,
       email,
       password,
       verifyPassword,
