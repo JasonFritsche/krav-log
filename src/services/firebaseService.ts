@@ -36,16 +36,23 @@ export async function register(
 }
 
 // Login user
-export async function login(email: string, password: string) {
+export async function login(
+  email: string,
+  password: string
+): Promise<
+  firebase.auth.UserCredential | { errorCode: string; errorMessage: string }
+> {
   try {
     // log in using email and password
     const response = await firebase
       .auth()
       .signInWithEmailAndPassword(email, password)
     // return the currently logged in user.
-    return response.user
-  } catch (error) {
-    alert(error)
+    return response
+  } catch (error: any) {
+    const errorMessage = error?.message ?? 'error occurred during login'
+    const errorCode = error?.code ?? 'auth'
+    return { errorCode, errorMessage }
   }
 }
 
