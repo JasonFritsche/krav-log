@@ -5,7 +5,7 @@
     <div>{{ headerText }}</div>
     <form class="flex flex-col" @submit.prevent>
       <div class="p-3">
-         <k-input
+        <k-input
           type="text"
           placeholder="Email"
           aria-placeholder="email"
@@ -44,23 +44,22 @@ export default defineComponent({
   props: {
     headerText: String
   },
-  setup(_, context) {
+  setup() {
     const email = ref<string>('')
     const password = ref<string>('')
     const store = useStore()
-    const route =useRoute()
-    const router =useRouter()
-    const that = this;
+    const router = useRouter()
     const loginUser = () => {
-      login(email.value, password.value).then(user => {
-          store.commit('setUser', user);
-          console.log(user)
-          // this.isLoading = false;
-        })
-        .then(() => {
-          // Go to the home page after loggin in.
+      login(email.value, password.value).then((firebaseResponse) => {
+        if ('user' in firebaseResponse) {
+          store.commit('setUser', firebaseResponse.user)
+          console.log(firebaseResponse.user)
           router.push('/home')
-        })
+        } else {
+          // TODO: handle this, make it a generic message "username or password invalid"
+          console.log(firebaseResponse)
+        }
+      })
     }
 
     return {
