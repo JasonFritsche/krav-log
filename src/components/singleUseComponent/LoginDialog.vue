@@ -5,13 +5,23 @@
     <div>{{ headerText }}</div>
     <form class="flex flex-col" @submit.prevent>
       <div class="p-3">
-        <k-input />
+         <k-input
+          type="text"
+          placeholder="Email"
+          aria-placeholder="email"
+          v-model="email"
+        />
       </div>
       <div class="p-3">
-        <k-input />
+        <k-input
+          type="password"
+          placeholder="Password"
+          aria-placeholder="password"
+          v-model="password"
+        />
       </div>
       <div>
-        <k-button> Submit </k-button>
+        <k-button @click="loginUser">Log In</k-button>
       </div>
       <div>
         Need an account?
@@ -22,15 +32,42 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref } from 'vue'
+import { login } from '../../services/firebaseService'
 import KInput from '../KInput.vue'
 import KButton from '../KButton.vue'
+import { useStore } from 'vuex'
+import { useRoute, useRouter } from 'vue-router'
 
 export default defineComponent({
   components: { KInput, KButton },
   props: {
     headerText: String
   },
-  setup() {}
+  setup(_, context) {
+    const email = ref<string>('')
+    const password = ref<string>('')
+    const store = useStore()
+    const route =useRoute()
+    const router =useRouter()
+    const that = this;
+    const loginUser = () => {
+      login(email.value, password.value).then(user => {
+          store.commit('setUser', user);
+          console.log(user)
+          // this.isLoading = false;
+        })
+        .then(() => {
+          // Go to the home page after loggin in.
+          router.push('/home')
+        })
+    }
+
+    return {
+      email,
+      password,
+      loginUser
+    }
+  }
 })
 </script>
